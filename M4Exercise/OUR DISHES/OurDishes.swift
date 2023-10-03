@@ -23,17 +23,24 @@ struct OurDishes: View {
                 .cornerRadius(20)
             
             
-//            NavigationView {
-//                FetchedObjects(
-//                    predicate:buildPredicate(),
-//                    sortDescriptors: buildSortDescriptors()) {
-//                        (dishes: [Dish]) in
-//                        List {
-//                            // Code for the list enumeration here
-//                        }
-//                        // add the search bar modifier here
-//                    }
-//            }
+            NavigationView {
+                FetchedObjects(
+                    predicate:buildPredicate(),
+                    sortDescriptors: buildSortDescriptors()) {
+                        (dishes: [Dish]) in
+                        List {
+                            ForEach(dishes, id:\.self) { dish in
+                                Button(action: {
+                                    showAlert = true
+                                }) {
+                                    DisplayDish(dish)
+                                }
+                            }
+                        }
+                        .searchable(text: $searchText,
+                                    prompt: "search...")
+                    }
+            }
             
             // SwiftUI has this space between the title and the list
             // that is amost impossible to remove without incurring
@@ -57,6 +64,21 @@ struct OurDishes: View {
             
         }
     }
+    
+    func buildPredicate() -> NSPredicate {
+        return searchText == "" ? NSPredicate(value: true) : NSPredicate(format: "name CONTAINS[cd] %@", searchText)
+    }
+    
+    func buildSortDescriptors () -> [NSSortDescriptor] {
+        return [
+            NSSortDescriptor(key: "name",
+                             ascending: true,
+                             selector: #selector(NSString.localizedCompare)),
+            NSSortDescriptor(key: "size",
+                             ascending: true,
+                             selector: #selector(NSString.localizedCompare))
+        ]
+    }
 }
 
 struct OurDishes_Previews: PreviewProvider {
@@ -64,9 +86,3 @@ struct OurDishes_Previews: PreviewProvider {
         OurDishes()
     }
 }
-
-
-
-
-
-
