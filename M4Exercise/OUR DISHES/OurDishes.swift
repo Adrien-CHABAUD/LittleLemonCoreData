@@ -23,17 +23,17 @@ struct OurDishes: View {
                 .cornerRadius(20)
             
             
-            NavigationView {
-                FetchedObjects(
-                    predicate:buildPredicate(),
-                    sortDescriptors: buildSortDescriptors()) {
-                        (dishes: [Dish]) in
-                        List {
-                            // Code for the list enumeration here
-                        }
-                        // add the search bar modifier here
-                    }
-            }
+//            NavigationView {
+//                FetchedObjects(
+//                    predicate:buildPredicate(),
+//                    sortDescriptors: buildSortDescriptors()) {
+//                        (dishes: [Dish]) in
+//                        List {
+//                            // Code for the list enumeration here
+//                        }
+//                        // add the search bar modifier here
+//                    }
+//            }
             
             // SwiftUI has this space between the title and the list
             // that is amost impossible to remove without incurring
